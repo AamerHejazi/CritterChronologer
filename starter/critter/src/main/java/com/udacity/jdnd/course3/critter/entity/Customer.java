@@ -20,7 +20,8 @@ public class Customer {
     @Column(length = 512)
     private String notes;
 
-    @JsonManagedReference // added to solve recursion problem with plant class
+    // added to solve recursion problem with plant class
+    @JsonManagedReference
     @OneToMany(mappedBy = "owner",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Pet> pets;
 
