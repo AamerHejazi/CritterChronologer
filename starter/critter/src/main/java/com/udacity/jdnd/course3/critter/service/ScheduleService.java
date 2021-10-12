@@ -34,7 +34,7 @@ public class ScheduleService {
         return scheduleRepository.findAll();
     }
 
-    // ToDo maybe it needs some change let us test it
+
     public List<Schedule> getAllScheduleIdsByPetId(long petId){
 
         //old code

@@ -75,7 +75,6 @@ public class UserController {
                 employeeDTO.getName(), employeeDTO.getSkills(), employeeDTO.getDaysAvailable())));
     }
 
-    //ToDo  ask question for this one before submit it
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
 
@@ -96,16 +95,14 @@ public class UserController {
     }
 
 
-    //ToDo need to do the copy of the nested object elements
     public CustomerDTO convertCustomerToCustomerDTO(Customer customer) {
-        CustomerDTO customerDTO = new CustomerDTO();
-        BeanUtils.copyProperties(customer, customerDTO);
-        return customerDTO;
+
+        return new CustomerDTO(customer.getId(),customer.getName(),customer.getPhoneNumber(),
+                customer.getNotes(),customer.getPets().stream().map(Pet::getId).collect(Collectors.toList()));
     }
 
     public EmployeeDTO convertEmployeeToEmployeeDTO(Employee employee) {
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        BeanUtils.copyProperties(employee, employeeDTO);
-        return employeeDTO;
+
+        return new EmployeeDTO(employee.getId(), employee.getName(), employee.getSkills(), employee.getDaysAvailable());
     }
 }

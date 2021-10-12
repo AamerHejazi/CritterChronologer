@@ -23,6 +23,7 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
+
         return convertPetToPetDTO(petService.createNewPet(
                 new Pet(petDTO.getId(), petDTO.getType(),
                         petDTO.getName(), petDTO.getBirthDate(),
@@ -52,9 +53,8 @@ public class PetController {
     }
 
     public PetDTO convertPetToPetDTO(Pet pet) {
-        PetDTO petDTO = new PetDTO();
-        BeanUtils.copyProperties(pet, petDTO);
-        return petDTO;
+
+        return new PetDTO(pet.getId(),pet.getType(),pet.getName(),pet.getOwner().getId(),pet.getBirthDate(),pet.getNotes());
     }
 
 }

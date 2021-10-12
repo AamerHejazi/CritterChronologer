@@ -1,7 +1,6 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
-import com.udacity.jdnd.course3.critter.entity.Employee;
 import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
@@ -23,15 +22,16 @@ public class PetService {
     CustomerRepository customerRepository;
 
     // 1
-    public List<Pet> getAllPetsByPetsIds(List<Long> pets){
+    public List<Pet> getAllPetsByPetsIds(List<Long> pets) {
 
-        List<Pet> petsList = null;
+        List<Pet> petsList = new ArrayList<>();
 
-        if (pets != null && !pets.isEmpty()){
+        if (pets != null && !pets.isEmpty()) {
             petsList = new ArrayList<>();
-        for (Long petId : pets){
-            petsList.add(petRepository.getOne(petId));
-        }}
+            for (Long petId : pets) {
+                petsList.add(petRepository.getOne(petId));
+            }
+        }
 
         return petsList;
     }
@@ -43,12 +43,12 @@ public class PetService {
     }
 
     //3
-    public List<Pet> getAllByIds(List<Long> petIdes){
+    public List<Pet> getAllByIds(List<Long> petIdes) {
         return new ArrayList<>(petRepository.findAllById(petIdes));
     }
 
     // 4
-    public Pet createNewPet(Pet pet){
+    public Pet createNewPet(Pet pet) {
         Customer customer = customerRepository.save(pet.getOwner());
         System.out.println("" + customer.getId());
         List<Pet> petsList = new ArrayList<>();
@@ -60,27 +60,27 @@ public class PetService {
         customer.setPets(petsList);
 
         customerRepository.save(customer);
-        return  pet;
+        return pet;
     }
 
     // 5
-    public Customer findCustomerById(Long id){
+    public Customer findCustomerById(Long id) {
 
-        return customerRepository.getOne(id) ;
+        return customerRepository.getOne(id);
     }
 
     // 6
-    public Pet findPetById(long id){
+    public Pet findPetById(long id) {
         return petRepository.getOne(id);
     }
 
     // 7
-    public List<Pet> findAllPets(){
+    public List<Pet> findAllPets() {
         return petRepository.findAll();
     }
 
-    public List<Pet> findAllByCustomerId(long customerId){
+    public List<Pet> findAllByCustomerId(long customerId) {
 
-        return petRepository.findAllById(customerId);
+        return petRepository.findPetByOwnerId(customerId);
     }
 }
